@@ -1,11 +1,9 @@
-import { useContext } from "react";
 import { BrowserRouter, Switch, Route, Redirect } from "react-router-dom";
 import Login from "./pages/login";
 import Home from "./pages/Home/Home";
-import { AuthContext } from "./context/auth/authContext";
+import { useSelector } from "react-redux";
 const AppRouter = () => {
-  const { user } = useContext(AuthContext);
-  console.log(user);
+  const userLogged = useSelector((state) => state.login);
   return (
     <BrowserRouter>
       <Switch>
@@ -13,10 +11,10 @@ const AppRouter = () => {
           path="/"
           exact={true}
           render={() => {
-            return user.login ? <Redirect to={"/user"} /> : <Login />;
+            return userLogged ? <Redirect to={"/user"} /> : <Login />;
           }}
         />
-        <PrivateRoutes logged={user.login} path="/user">
+        <PrivateRoutes logged={userLogged} path="/user">
           <Home />
         </PrivateRoutes>
         <Route path="/**">

@@ -1,18 +1,17 @@
-import { useContext } from "react";
-import { AuthContext } from "../../context/auth/authContext";
 import { useHistory } from "react-router-dom";
+import { useDispatch, connect } from "react-redux";
+import { AuthActions } from "../../redux/AuthActions.js";
 const Login = () => {
-  const history = useHistory();
-  const { login } = useContext(AuthContext);
+  const dispatch = useDispatch();
   const singin = () => {
-    console.log(history);
+    dispatch({ type: AuthActions.LOGIN_SUCCESS, payload: null });
   };
   return (
     <div>
       <form action="">
         <input type="text" />
         <input type="text" />
-        <button type="button" onClick={() => login()}>
+        <button type="button" onClick={() => singin()}>
           {" "}
           ingresar{" "}
         </button>
@@ -21,4 +20,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default connect()(Login);

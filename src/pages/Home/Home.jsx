@@ -1,13 +1,16 @@
-import { useContext } from "react";
-import { AuthContext } from "../../context/auth/authContext";
+import { useDispatch, connect } from "react-redux";
+import { AuthActions } from "../../redux/AuthActions.js";
 const Home = () => {
-  const { logOut } = useContext(AuthContext);
+  const dispatch = useDispatch();
+  const logOut = () => {
+    dispatch({ type: AuthActions.LOG_OUT, payload: null });
+  };
   return (
     <div>
-      <button onClick={logOut}>salir</button>
+      <button onClick={() => logOut()}>salir</button>
       home
     </div>
   );
 };
 
-export default Home;
+export default connect()(Home);
